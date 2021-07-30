@@ -1,0 +1,36 @@
+- hosts: webservers
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Install apache2 webserver
+      apt: name=apache2 state=latest
+      # when: ansible_os_family == "Debian"
+      tags:
+      - install
+        # ignore_errors: true
+
+    - name: start apache webserver
+      service: name=apache2 state=started
+      tags:
+      - start
+        # ignore_errors: true
+
+    - name: copy file to index.html
+      #copy: src=/home/ansible/index.html dest=/var/www/html/index.html
+      copy:
+        src: /home/ansible/index.html
+        dest: /var/www/html/index.html
+      tags:
+      - copy
+        # ignore_errors: true
+
+    - name: debug
+      debug:
+        msg: "Best Wishes from Mamz"
+      tags:
+      - echo
+    - name: restarted
+      service: name=apache2 state=restarted
+
+    - name: create a files
+      shell: echo "Jesus is Lord" > db.py
