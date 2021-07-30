@@ -1,0 +1,13 @@
+- hosts: localhost
+  become: yes
+  tasks:
+    - name: Install Packages
+      package:
+        name: "{{item}}"
+        update_cache: yes
+        state: present
+      with_items:
+      - git
+      - nano
+      - wget
+      - unzip
