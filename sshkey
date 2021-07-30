@@ -1,0 +1,19 @@
+# Deploy ssh public key into hosts
+---
+- hosts: all
+  tasks:
+  - name: make direcotry
+    file:
+      path: "/home/<username>/.ssh"
+      state: directory
+  - name: create empty file
+    file:
+      path: "/home/<username>/.ssh/authorized_keys"
+      state: touch
+  - name: put pubkey
+    lineinfile:
+      path: "/home/<username>/.ssh/authorized_keys"
+      line: "{{ pubkey }}"
+      
+      
+      ansible-playbook -i <inventory-file> deploy_authorized_keys.yml --ask-pass --extra-vars='pubkey="<pubkey>"'
