@@ -1,0 +1,16 @@
+- hosts: webservers 
+  tasks:
+    - name: install apache 
+      package: 
+        name: httpd 
+        state: latest
+    - name: start  apache
+      systemd: 
+        name: httpd
+        state: started
+    - name: copy index.html
+      copy: 
+        src: /tmp/index.html
+        dest: /var/www/html/
+  handlers:
+    - name: restart
