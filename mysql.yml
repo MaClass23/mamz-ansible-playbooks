@@ -1,0 +1,11 @@
+- hosts: dbservers
+  tasks:
+    - name: install mysql
+      yum:
+        name: mysql
+        state: present
+    - name: start mysql
+      service:
+        name: mysql
+        state: started
+~
