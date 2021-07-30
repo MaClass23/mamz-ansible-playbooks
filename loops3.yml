@@ -1,0 +1,31 @@
+- hosts: dbservers
+  become: yes
+  tasks:
+    - name: Install Packages
+      package:
+        name: ['unzip', 'git', 'nano', 'wget']
+        update_cache: yes
+        state: present
+      when: ansible_os_family == "Ubuntu"
+      ignore_errors: true
+
+    - name: create a file
+      file:
+        path: /home/ansible/db.sh
+        state: touch
+      ignore_errors: true
+
+    - name: copy file
+      template:
+        src: index.html
+        dest: /tmp
+
+    - name: create a file
+      shell: echo "I am a proud DevOps Engineer" > db.py
+      ignore_errors: true
+
+    - name: create a directory
+      file:
+        path: /home/ansible/databases
+        state: directory
+      ignore_errors: true
