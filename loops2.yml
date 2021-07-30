@@ -6,7 +6,7 @@
         name: ['unzip', 'git', 'nano', 'wget']
         update_cache: yes
         state: latest
-      when: ansible_os_family == "Ubuntu"
+      when: ansible_os_family == "Debian" # (for ubuntu) 
       ignore_errors: true
 
     - name: create a file
